@@ -1,0 +1,162 @@
+<html>
+
+<head>
+    <style>
+        h1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        #form {
+            display: flex;
+            justify-content: center;
+        }
+
+        #lista {
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type=text],
+        select {
+            border: 2px solid gray;
+            border-radius: 10px;
+        }
+
+        .button {
+            background-color: #555555;
+            color: white;
+            border-radius: 10px;
+            float: right;
+        }
+
+
+    </style>
+    <script>
+        var datos = [];
+
+        function Datos() {
+
+            var html = "<table>";
+
+            for (var i = 0; i < datos.length; i++) {
+                html += "<tr>";
+
+                html += "<td><font size=5 color=" + datos[i]["color"] + ">" + datos[i]["nombre"];
+                html += " ";
+                html += datos[i]["color"];
+                html += " ";
+                let hoy = new Date();
+                let caducidad = new Date(datos[i]["anio"], datos[i]["mes"], datos[i]["dia"]);
+                let milday = 1000 * 60 * 60 * 24;
+                let cantday = Math.ceil((caducidad.getTime() - hoy.getTime()) / milday);
+                html += `${cantday} dias para caducar` + "</font></td>";
+
+                html += "</tr>";
+            }
+
+            html += "</table>";
+
+            var div = document.getElementById("lista");
+            div.innerHTML = html;
+
+        }
+
+
+        function btnEnviar_click() {
+            var nombre = document.getElementById("nombre").value;
+            var color = document.getElementById("txtColor").value;
+            var dia = document.getElementById("dia").value;
+            var mes = document.getElementById("mes").value;
+            var anio = document.getElementById("anio").value;
+            var mesint = parseInt(mes);
+
+
+            var registro = {
+                "nombre": nombre,
+                "color": color,
+                "dia": dia,
+                "mes": mesint - 1,
+                "anio": anio
+            };
+
+            datos.push(registro);
+            Datos();
+
+        }
+
+    </script>
+
+</head>
+
+<body bgcolor="#D8D8D8">
+    <div id="form">
+        <form>
+            <h1>FRUTAS</h1>
+            <p>Nombre:<input type="text" id="nombre" /></p>
+            <p>Color:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="txtColor" /></p>
+
+
+            Caducidad: dd:<select id="dia">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+                <option>25</option>
+                <option>26</option>
+                <option>27</option>
+                <option>28</option>
+                <option>29</option>
+                <option>30</option>
+                <option>31</option>
+            </select> mm: <select id="mes">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select> aa: <select id="anio">
+                <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
+            </select>
+            <br>
+            <br>
+            <input class="button" type="button" onclick="btnEnviar_click()" value="Enviar" />
+        </form>
+    </div>
+    <h1>LISTA</h1>
+    <div id="lista"></div>
+</body>
+
+</html>
